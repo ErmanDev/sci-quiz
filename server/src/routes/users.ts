@@ -176,13 +176,25 @@ router.post('/students', requireAuth, async (req, res) => {
     email,
     name,
     passwordHash: bcrypt.hashSync(password, 10),
-    classId,
     createdAt: now,
     updatedAt: now,
     level: DEFAULT_LEVEL,
     exp: DEFAULT_EXP,
     accuracy: DEFAULT_ACCURACY,
   };
+
+  // Handle classId separately if provided (students are linked via classStudents table)
+  if (classId) {
+    const classStudents = db.data!.classStudents || [];
+    const membership: any = {
+      id: nanoid(),
+      classId: String(classId),
+      studentId: student.id,
+      joinedAt: now,
+    };
+    classStudents.push(membership);
+    db.data!.classStudents = classStudents;
+  }
 
   db.data!.users.push(student);
   await db.write();
