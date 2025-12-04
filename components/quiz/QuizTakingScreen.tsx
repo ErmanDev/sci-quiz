@@ -2,11 +2,8 @@
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { API_URL } from '../../server/src/config';
 import { Question, MultipleChoiceQuestion, IdentificationQuestion } from '../../data/teacherQuizQuestions';
-
-// Use public assets so they work in both dev and production.
-// These files should live under public/Image/CARD BG/ in your Vite project.
-const backCard = '/Image/CARD BG/Backcard.png';
-const frontCard = '/Image/CARD BG/Frontcard.png';
+import backCard from '../../Image/CARD BG/Backcard.png';
+import frontCard from '../../Image/CARD BG/Frontcard.png';
 import QuizCompletedScreen from './QuizCompletedScreen';
 import { DoneQuiz } from '../../data/quizzes';
 import { Badge } from '../../data/badges';

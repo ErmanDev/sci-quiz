@@ -10,6 +10,8 @@ import {
 import { PencilIcon, TrashIcon } from '../icons';
 import SelectQuestionFromVaultModal from './SelectQuestionFromVaultModal';
 import { TeacherQuiz } from '../../data/teacherQuizzes';
+import cardBg from '../../Image/CARD BG/Backcard.png';
+import cardBack from '../../Image/CARD BG/Backcard.png';
 
 type GameMode = 'Solo' | 'Team' | 'Classroom';
 type GameCategory = 'Card' | 'Board' | 'Normal';
@@ -459,7 +461,7 @@ setFileName(file.name);
                       {/* Front */}
                       <div
                         className="absolute w-full h-full backface-hidden rounded-2xl border-4 border-yellow-400/50 p-4 flex flex-col bg-cover bg-center shadow-lg shadow-black/50"
-                        style={{ backgroundImage: "url('Image/bg.png')" }}
+                        style={{ backgroundImage: `url(${cardBg})` }}
                       >
                         <div className="absolute top-2 left-2 bg-black/50 px-3 py-1 rounded-full text-sm font-bold text-white">
                           {editorCard.points || 0} pts
@@ -491,7 +493,7 @@ setFileName(file.name);
                       </div>
                       {/* Back */}
                       <div className="absolute w-full h-full backface-hidden rotate-y-180 rounded-2xl border-4 border-yellow-400/50 overflow-hidden shadow-lg shadow-black/50">
-                        <img src="Image/Backcard.png" className="w-full h-full object-cover" alt="Card Back" />
+                        <img src={cardBack} className="w-full h-full object-cover" alt="Card Back" />
                       </div>
                     </div>
                   </div>

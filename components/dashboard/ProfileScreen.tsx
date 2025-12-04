@@ -8,6 +8,7 @@ import { useTranslations } from '../../hooks/useTranslations';
 import { DashboardView, View } from '../../data/quizzes';
 import { Conversation } from '../../App';
 import { achievementMessages } from '../../data/achievements';
+import { resolveAvatar } from '../../src/avatarAssets';
 
 const nameToFilename: Record<string, string> = {
   // Consistent Performer
@@ -198,7 +199,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({
           <div className="flex items-center space-x-4">
             {profile?.avatar ? (
               <img
-                src={profile.avatar}
+                src={resolveAvatar(profile.avatar) || profile.avatar}
                 alt="Profile Avatar"
                 className="w-16 h-16 bg-brand-mid-purple rounded-lg object-cover shadow-glow"
               />

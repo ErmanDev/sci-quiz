@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import CropAvatarModal from '../dashboard/CropAvatarModal';
 import { useTranslations } from '../../hooks/useTranslations';
 import AvatarSelection from '../AvatarSelection';
+import { resolveAvatar } from '../../src/avatarAssets';
 
 export interface TeacherProfileData {
     name: string;
@@ -46,7 +47,8 @@ const EditTeacherProfileModal: React.FC<EditTeacherProfileModalProps> = ({ onClo
     const [imageToCrop, setImageToCrop] = useState<string | null>(null);
 
     const getAvatarFilename = (path: string | null | undefined): string | null => {
-        if (!path || !path.includes('/')) return null;
+        if (!path) return null;
+        if (/^https?:\/\//i.test(path) || path.startsWith('data:')) return null;
         const parts = path.split('/');
         const filename = parts[parts.length - 1];
         return filename.includes('.') ? filename : null; 
@@ -93,7 +95,8 @@ const EditTeacherProfileModal: React.FC<EditTeacherProfileModalProps> = ({ onClo
         if (selectedAvatar === 'custom') {
             finalAvatar = customAvatar;
         } else if (selectedAvatar && selectedAvatar !== 'initials') {
-            finalAvatar = `/Image/AVATAR/${selectedAvatar}`;
+            const src = resolveAvatar(selectedAvatar);
+            finalAvatar = src || selectedAvatar;
         }
         onSave({ name, motto, avatar: finalAvatar, activeClassId: activeClassId || null });
     };

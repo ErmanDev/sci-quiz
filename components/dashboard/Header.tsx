@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ProfileData } from '../StudentDashboard';
 import { useTranslations } from '../../hooks/useTranslations';
 import { API_URL } from '../../server/src/config';
+import { resolveAvatar, defaultAvatar } from '../../src/avatarAssets';
 
 interface HeaderProps {
   onJoinClassClick: () => void;
@@ -92,7 +93,11 @@ const Header: React.FC<HeaderProps> = ({ onJoinClassClick, profile, studentJoine
     <header className="px-4 pt-8 pb-4">
       <div className="flex items-center space-x-4">
         {profile.avatar ? (
-            <img src={profile.avatar} alt="Profile Avatar" className="w-14 h-14 bg-brand-mid-purple rounded-lg object-cover" />
+            <img
+              src={resolveAvatar(profile.avatar) || profile.avatar || defaultAvatar()}
+              alt="Profile Avatar"
+              className="w-14 h-14 bg-brand-mid-purple rounded-lg object-cover"
+            />
         ) : (
             <div className="w-14 h-14 bg-brand-accent rounded-lg flex items-center justify-center font-bold text-2xl text-white">
                 {getInitials(profile.name)}

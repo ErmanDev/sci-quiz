@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslations } from '../../hooks/useTranslations';
 import { ClassStudent } from '../../data/classStudentData';
+import { resolveAvatar, defaultAvatar } from '../../src/avatarAssets';
 
 interface TeamPlayersModalProps {
   isOpen: boolean;
@@ -13,9 +14,14 @@ interface TeamPlayersModalProps {
 }
 
 const MemberAvatar: React.FC<{ avatar?: string; name: string }> = ({ avatar, name }) => {
-    return (
-        <img src={avatar || '/Image/AVATAR/Cel-L.png'} alt={name} className="w-12 h-12 rounded-full object-cover border-2 border-white/50" />
-    );
+  const src = resolveAvatar(avatar || undefined) || defaultAvatar();
+  return (
+    <img
+      src={src}
+      alt={name}
+      className="w-12 h-12 rounded-full object-cover border-2 border-white/50"
+    />
+  );
 };
 
 const TeamPlayersModal: React.FC<TeamPlayersModalProps> = ({ isOpen, onClose, onDone, studentName, classRoster, teams, currentQuizId }) => {

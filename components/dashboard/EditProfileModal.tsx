@@ -3,6 +3,7 @@ import CropAvatarModal from './CropAvatarModal';
 import { useTranslations } from '../../hooks/useTranslations';
 import { ProfileData } from '../StudentDashboard';
 import AvatarSelection from '../AvatarSelection';
+import { resolveAvatar } from '../../src/avatarAssets';
 
 interface EditProfileModalProps {
   onClose: () => void;
@@ -36,7 +37,9 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ onClose, onSave, pr
     const [imageToCrop, setImageToCrop] = useState<string | null>(null);
 
     const getAvatarFilename = (path: string | null | undefined): string | null => {
-        if (!path || !path.includes('/')) return null;
+        if (!path) return null;
+        // If it's a full URL or data URI, treat as custom avatar
+        if (/^https?:\/\//i.test(path) || path.startsWith('data:')) return null;
         const parts = path.split('/');
         const filename = parts[parts.length - 1];
         // A simple check to see if it's likely one of our preset avatars
@@ -84,7 +87,9 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ onClose, onSave, pr
         if (selectedAvatar === 'custom') {
             finalAvatar = customAvatar;
         } else if (selectedAvatar && selectedAvatar !== 'initials') {
-            finalAvatar = `/Image/AVATAR/${selectedAvatar}`;
+            // Store the filename, but at render-time we resolve it to a bundled URL.
+            const src = resolveAvatar(selectedAvatar);
+            finalAvatar = src || selectedAvatar;
         }
         onSave({ name, bio, avatar: finalAvatar });
     };

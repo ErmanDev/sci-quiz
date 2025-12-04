@@ -5,6 +5,12 @@ import { useTranslations } from '../../hooks/useTranslations';
 import { ClassStudent } from '../../data/classStudentData';
 import { TeacherQuiz } from '../../data/teacherQuizzes';
 import { rankingsApi } from '../../src/api';
+import { resolveAvatar, defaultAvatar } from '../../src/avatarAssets';
+
+import firstRank from '../../Image/RANKING/1st.png';
+import secondRank from '../../Image/RANKING/2nd.png';
+import thirdRank from '../../Image/RANKING/3rd.png';
+import fourthRank from '../../Image/RANKING/4th.png';
 
 interface PodiumItemProps {
     rank: number;
@@ -15,19 +21,20 @@ interface PodiumItemProps {
 }
 
 const getRankingImageForPodium = (rank: number): string => {
-    if (rank === 1) return '/Image/RANKING/1st.png';
-    if (rank === 2) return '/Image/RANKING/2nd.png';
-    if (rank === 3) return '/Image/RANKING/3rd.png';
+    if (rank === 1) return firstRank;
+    if (rank === 2) return secondRank;
+    if (rank === 3) return thirdRank;
     return ''; // Should not be called for other ranks
 };
 
 const PodiumItem: React.FC<PodiumItemProps> = ({ rank, name, avatar, order, elevated }) => {
     const podiumImage = getRankingImageForPodium(rank);
+    const avatarSrc = resolveAvatar(avatar || undefined) || defaultAvatar();
 
     return (
         <div className={`flex flex-col items-center transform transition-transform duration-300 ease-in-out ${elevated ? '-translate-y-8' : ''}`} style={{ order }}>
             <div className="relative w-24 h-24">
-                <img src={avatar || '/Image/AVATAR/Cel-L.png'} alt={name} className="w-16 h-16 rounded-full object-cover absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                <img src={avatarSrc} alt={name} className="w-16 h-16 rounded-full object-cover absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
                 {podiumImage && (
                     <img 
                         src={podiumImage} 
@@ -64,15 +71,16 @@ interface LeaderboardItemProps {
 }
 
 const getRankingImageForLeaderboard = (rank: number): string => {
-    if (rank === 1) return '/Image/RANKING/1st.png';
-    if (rank === 2) return '/Image/RANKING/2nd.png';
-    if (rank === 3) return '/Image/RANKING/3rd.png';
-    if (rank === 4) return '/Image/RANKING/4th.png';
+    if (rank === 1) return firstRank;
+    if (rank === 2) return secondRank;
+    if (rank === 3) return thirdRank;
+    if (rank === 4) return fourthRank;
     return '';
 };
 
 const LeaderboardItem: React.FC<LeaderboardItemProps> = ({ rank, name, score, avatar, showPercent, isCurrentUser }) => {
     const rankingImage = getRankingImageForLeaderboard(rank);
+    const avatarSrc = resolveAvatar(avatar || undefined) || defaultAvatar();
 
     return (
         <div className="relative flex items-center justify-between py-2 px-3 rounded-lg transition-all duration-300 ease-in-out">
@@ -93,7 +101,7 @@ const LeaderboardItem: React.FC<LeaderboardItemProps> = ({ rank, name, score, av
                     <span className="font-bold text-sm text-white">{rank}</span>
                 </div>
                 <div className="relative w-9 h-9">
-                    <img src={avatar || '/Image/AVATAR/Cel-L.png'} alt={name} className="w-full h-full rounded-full object-cover" />
+                    <img src={avatarSrc} alt={name} className="w-full h-full rounded-full object-cover" />
                     {rankingImage && (
                         <img
                             src={rankingImage}

@@ -22,6 +22,9 @@ import TeamPlayersModal from './quiz/TeamPlayersModal';
 import { Conversation, ChatMessage } from '../App';
 import { TeacherProfileData } from './teacher/EditTeacherProfileModal';
 import { API_URL } from '../server/src/config';
+import track1 from '../Image/BG MUSIC/SQ1.mp3';
+import track2 from '../Image/BG MUSIC/SQ2.mp3';
+import track3 from '../Image/BG MUSIC/SQ3.mp3';
 
 // Types matching backend
 type Announcement = {
@@ -123,9 +126,9 @@ export interface Track {
 }
 
 export const defaultMusic: Track[] = [
-    { id: 1, name: 'SQ1.mp3', type: 'default', src: '/Image/BG MUSIC/SQ1.mp3' },
-    { id: 2, name: 'SQ2.mp3', type: 'default', src: '/Image/BG MUSIC/SQ2.mp3' },
-    { id: 3, name: 'SQ3.mp3', type: 'default', src: '/Image/BG MUSIC/SQ3.mp3' },
+    { id: 1, name: 'SQ1.mp3', type: 'default', src: track1 },
+    { id: 2, name: 'SQ2.mp3', type: 'default', src: track2 },
+    { id: 3, name: 'SQ3.mp3', type: 'default', src: track3 },
 ];
 
 const StudentDashboard: React.FC<StudentDashboardProps> = ({ 
