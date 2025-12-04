@@ -9,10 +9,6 @@ import { useTranslations } from '../../hooks/useTranslations';
 import { DashboardView, View } from '../../data/quizzes';
 import { usePersistentState } from '../../hooks/usePersistentState';
 
-import SQ1 from '../../Image/BG MUSIC/SQ1.mp3';
-import SQ2 from '../../Image/BG MUSIC/SQ2.mp3';
-import SQ3 from '../../Image/BG MUSIC/SQ3.mp3';
-
 interface SettingsModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -22,10 +18,12 @@ interface SettingsModalProps {
   setAppView: (view: View) => void;
 }
 
+// Use public paths so background music also works in production.
+// Ensure these files exist under public/Image/BG MUSIC/ in your project.
 const defaultMusic = [
-    { name: 'Science Quiz 1', type: 'default' as const, url: SQ1 },
-    { name: 'SQ2.mp3', type: 'default' as const, url: SQ2 },
-    { name: 'SQ3.mp3', type: 'default' as const, url: SQ3 },
+    { name: 'Science Quiz 1', type: 'default' as const, url: '/Image/BG MUSIC/SQ1.mp3' },
+    { name: 'SQ2.mp3', type: 'default' as const, url: '/Image/BG MUSIC/SQ2.mp3' },
+    { name: 'SQ3.mp3', type: 'default' as const, url: '/Image/BG MUSIC/SQ3.mp3' },
 ];
 
 type Music = { name: string; type: 'default' | 'uploaded'; url: string };
